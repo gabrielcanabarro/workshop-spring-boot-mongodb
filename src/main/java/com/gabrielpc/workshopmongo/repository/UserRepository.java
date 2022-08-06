@@ -8,4 +8,9 @@ import com.gabrielpc.workshopmongo.domain.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
+	
+
+	
+
+
 }
