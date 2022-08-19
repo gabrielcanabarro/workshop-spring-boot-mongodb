@@ -1,9 +1,12 @@
 package com.gabrielpc.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
@@ -14,6 +17,13 @@ public class User implements Serializable  {             // Converter objetos em
 	private String id;
 	private String name;
 	private String email;
+	
+	
+	// Referenciando os posts com o usuário
+	
+	@DBRef(lazy = true)  // permitir que os post só sejam carregados se forem acessados
+	private List<Post> posts = new ArrayList<>();
+	
 	
 	// CONSTRUCTORS
 	public User() {}
@@ -49,6 +59,14 @@ public class User implements Serializable  {             // Converter objetos em
 		this.email = email;
 	}
 	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	
 	// HASH CODES
 	@Override
 	public int hashCode() {
@@ -66,6 +84,8 @@ public class User implements Serializable  {             // Converter objetos em
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 	
 	
 }
